@@ -1,5 +1,7 @@
-function [ret] = simu_t_download_overhead(size, rate, overhead)
-ret = size./ rate + exprnd(overhead);
+function [ret] = simu_t_download_overhead(overhead)
+ret = @(size, rate) ...
+    simu_t_download_overhead_k( ...
+        size, rate, overhead);
 
 end
 

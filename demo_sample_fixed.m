@@ -2,12 +2,21 @@
 % --
 %
 
-clear
-clc
+init_env;
 
-T_WAIT = 12;
+AP_RATE_CHANGE_HALF_RANGE = 300;
+GRACE_PERIOD = 60;
 
-run_f = run_static(T_WAIT);
+ap_rate_change_f = simu_change_rates_uniform( ...
+    AP_RATE_CHANGE_HALF_RANGE, ...
+    AP_RATE_MIN);
+get_next_item_f = get_next_item_fixed(GRACE_PERIOD);
+run_f = run_dynamic(BASIC_WAIT, ...
+    DS_AVERAGE_RETRY_TIME, ...
+    AP_AVERAGE_WAIT_TIME, ...
+    DS_TRANS_OVERHEAD, AP_TRANS_OVERHEAD, ...
+    ap_rate_change_f, ...
+    get_next_item_f);
 
 fprintf('Running simulation with sample workspace: tiny_ds_size.mat\n\n');
 [act_r, est_r, act_t_up] = run_f('sample/tiny_ds_size.mat'); %#ok<*ASGLU>

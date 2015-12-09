@@ -1,6 +1,7 @@
-function [changed_rates] = simu_change_rates_normal(rates, sigma, min_r)
-changed_rates = max(rates + normrnd(0, sigma, size(rates)), ...
-    repmat(min_r, size(rates)));
+function [ret] = simu_change_rates_normal(sigma, min_r)
+ret = @(rates) ...
+    simu_change_rates_normal_k( ...
+        rates, sigma, min_r);
 
 end
 

@@ -1,5 +1,5 @@
-function [id_ds, ind] = get_next_item_period(ls_plan, t_comp, ...
-    data_queue, id_ap, simu_time, current_rate, history, grace_p_base)
+function [id_ds, ind] = get_next_item_fixed_k(ls_plan, t_comp, ...
+    data_queue, id_ap, simu_time, current_rate, ~, grace_p)
 ind = 0;
 id_ds = 0;
 n_scheduled = sum(ls_plan == id_ap);
@@ -7,24 +7,6 @@ if n_scheduled < 1
     return
 end
 comp_time = t_comp(id_ap);
-
-history_eval = 0;
-if size(history, 1) < 1
-    history_eval = 0;
-else
-    history_x = ceil(history / 50);
-    for k = 1:size(history, 1)
-        if history_x(k) < 0
-            history_eval = history_eval + history_x(k);
-        else
-            break;
-        end
-    end
-    if history_eval >= 0
-        history_eval = history_x(1);
-    end
-end
-grace_p = grace_p_base * (2 + abs(history_eval));
 
 chosen = 0; % Find a data chunk scheduled here
 left = false;
@@ -53,7 +35,7 @@ if ~left % All chunks in plan are uploaded
     for j = 1:size(data_queue, 1)
         % Do not choose it if completion time is to be exceeded
         if simu_time + data_queue{j, 2} / current_rate > ...
-                comp_time + (history_eval > 0) * grace_p * 3
+                comp_time
             continue
         end
         

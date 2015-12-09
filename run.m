@@ -93,10 +93,14 @@ for ind_stop = 1:n_stops
                         upload_f(v_ds(next_ds, 3), act_op_rates(idi));
                     simu_time = simu_time + simu_upload_time;
                     act_time_up(next_ds) = simu_time;
+                    data_queue(next_ds_ind, :) = [];
+                    
+                    % Stats for history
+                    size_uploaded = size_uploaded + v_ds(next_ds, 3);
+                    
+                    % Adjust current rate indicator
                     current_rate = 0.2 * current_rate + ...
                         0.8 * v_ds(next_ds, 3) / simu_upload_time;
-                    size_uploaded = size_uploaded + v_ds(next_ds, 3);
-                    data_queue(next_ds_ind, :) = [];
 
                     % Get next item
                     [next_ds, next_ds_ind] = ...
@@ -105,13 +109,11 @@ for ind_stop = 1:n_stops
                             data_queue, idi, simu_time, current_rate, ...
                             history);
                 end
-                total_time = simu_time - simu_time_start;
-                history = ...
-                    [size_uploaded / total_time ...
-                             - v_op(idi, 2); ...
-                        history];
+                act_rate = size_uploaded / (simu_time - simu_time_start);
+                history = [act_rate - v_op(idi, 2), act_rate; history];
             else
                 simu_time = simu_time + OP_WAIT_MAX;
+                history = [-v_op(idi, 2), 0; history];
             end
         end
     else
