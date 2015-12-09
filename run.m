@@ -8,8 +8,8 @@ DS_WAIT_MAX = 50;
 OP_WAIT_MAX = 50;
 
 load(matrix_file);
-loaded_ws = load(matrix_file);
-fprintf('\n');
+%loaded_ws = load(matrix_file);
+%fprintf('\n');
 
 % Get basic parameters
 assert(exist('v_ds', 'var') == 1);
@@ -25,10 +25,11 @@ assert(n_stops == n_ds + n_op);
 % Prepare simulation parameters
 assert(exist('V_MDC', 'var') == 1);
 assert(exist('mat_m', 'var') == 1);
-assert(exist('ls', 'var') == 1);
-assert(isfield(loaded_ws, 'ls') == 1);
+%assert(exist('ls', 'var') == 1);
+%assert(isfield(loaded_ws, 'ls') == 1);
 assert(exist('t_comp', 'var') == 1);
-vec_ls = loaded_ws.ls;
+%vec_ls = loaded_ws.ls;
+vec_ls = m_to_ls(mat_m);
 
 act_op_rates = change_rates_f(v_op(:, 2));
 
@@ -45,10 +46,10 @@ for ind_stop = 1:n_stops
     %fprintf('Arriving at stop, x=%.1f\n', x_mdc);
     idi = stops{ind_stop, 3};
     if strcmp(stops{ind_stop, 2}, 'DS')
-        fprintf(...
-            'Arrived at DS at time %.1f, id=%d x=%.1f size=%.0f\n', ...
-            simu_time, ...
-            idi, x_mdc, v_ds(idi, 3));
+        %fprintf(...
+        %    'Arrived at DS at time %.1f, id=%d x=%.1f size=%.0f\n', ...
+        %    simu_time, ...
+        %    idi, x_mdc, v_ds(idi, 3));
         
         % Simulate connection
         ds_wait = ds_wait_f(t_wait);
@@ -64,10 +65,10 @@ for ind_stop = 1:n_stops
             simu_time = simu_time + DS_WAIT_MAX;
         end
     elseif strcmp(stops{ind_stop, 2}, 'AP')
-        fprintf(...
-            'Arrived at AP at time %.1f, id=%d x=%.1f rate_est=%0.f rate_act=%.0f\n', ...
-            simu_time, ...
-            idi, x_mdc, v_op(idi, 2), act_op_rates(idi));
+        %fprintf(...
+        %    'Arrived at AP at time %.1f, id=%d x=%.1f rate_est=%0.f rate_act=%.0f\n', ...
+        %    simu_time, ...
+        %    idi, x_mdc, v_op(idi, 2), act_op_rates(idi));
         
         % Get next item
         current_rate = v_op(idi, 2);
@@ -119,7 +120,7 @@ for ind_stop = 1:n_stops
 end
 ret_reward = reward(v_ds, vec_f(v_ds, act_time_up));
 est_reward = reward(v_ds, vec_f(v_ds, t_up));
-fprintf('\n');
+%fprintf('\n');
 
 end
 

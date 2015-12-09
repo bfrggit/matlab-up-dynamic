@@ -53,7 +53,7 @@ if ~left % All chunks in plan are uploaded
     for j = 1:size(data_queue, 1)
         % Do not choose it if completion time is to be exceeded
         if simu_time + data_queue{j, 2} / current_rate > ...
-                comp_time + grace_p
+                comp_time + (history_eval > 0) * grace_p * 3
             continue
         end
         
