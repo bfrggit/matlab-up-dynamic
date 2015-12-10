@@ -10,6 +10,7 @@ comp_time = t_comp(id_ap);
 
 % Evaluate history data
 h_eval_diff = 0;
+h_eval_dif2 = 0;
 h_eval_comp = max(round((current_rate - 300) / 50), 0);
 if size(history, 1) < 1
     ...
@@ -26,6 +27,7 @@ else
     if h_eval_diff >= 0
         h_eval_diff = history_diff(1);
     end
+    h_eval_dif2 = sum(abs(history_diff), 1) / size(history_diff, 1);
     
     % Evaluate actual rate history
     history_comp = round((current_rate - history(:, 2)) / 50);
@@ -35,7 +37,7 @@ end
 
 % Determine grace period
 grace_p = round(grace_p_base * log2(n_scheduled)) * ...
-    (2 + abs(h_eval_diff) + h_eval_comp * 3);
+    (2 + abs(h_eval_diff) + h_eval_dif2 * h_eval_comp);
 
 chosen = 0; % Find a data chunk scheduled here
 left = false;
