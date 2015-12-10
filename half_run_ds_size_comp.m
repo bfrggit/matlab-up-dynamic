@@ -92,7 +92,7 @@ plot(size_of_ds, reward_total(:, 4), ...
 xlabel('Size of one single data chunk (kB)');
 ylabel('Weighted overall utility');
 legend('Static plan', 'Fixed grace period', 'Flexible grace period');
-saveas(gcf, 'fig/half_ds_size_alg4.fig');
+saveas(gcf, 'fig/half_ds_size_comp_alg4.fig');
 
 figure;
 plot(size_of_ds, reward_total(:, 7), ...
@@ -101,6 +101,6 @@ plot(size_of_ds, reward_total(:, 7), ...
 xlabel('Size of one single data chunk (kB)');
 ylabel('Weighted overall utility');
 legend('Static plan', 'Fixed grace period', 'Flexible grace period');
-saveas(gcf, 'fig/half_ds_size_ga.fig');
+saveas(gcf, 'fig/half_ds_size_comp_ga.fig');
 
-save('mat/half_ds_size.mat')
+save('mat/half_ds_size_comp.mat')
