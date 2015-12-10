@@ -8,23 +8,34 @@ if n_scheduled < 1
 end
 comp_time = t_comp(id_ap);
 
-history_eval = 0;
+% Evaluate history data
+h_eval_diff = 0;
+h_eval_comp = max(round((current_rate - 300) / 50), 0);
 if size(history, 1) < 1
-    history_eval = 0;
+    ...
 else
-    history_x = round(history / 50);
-    for k = 1:size(history, 1)
-        if history_x(k) < 0
-            history_eval = history_eval + history_x(k);
+    % Evaluate difference history
+    history_diff = round(history(:, 1) / 50);
+    for k = 1:size(history_diff, 1)
+        if history_diff(k) < 0
+            h_eval_diff = h_eval_diff + history_diff(k);
         else
             break;
         end
     end
-    if history_eval >= 0
-        history_eval = history_x(1);
+    if h_eval_diff >= 0
+        h_eval_diff = history_diff(1);
     end
+    
+    % Evaluate actual rate history
+    history_comp = round((current_rate - history(:, 2)) / 50);
+    h_eval_comp = h_eval_comp + ...
+        sum(history_comp, 1) / size(history_comp, 1);
 end
-grace_p = grace_p_base * (2 + abs(history_eval));
+
+% Determine grace period
+grace_p = round(grace_p_base * log2(n_scheduled)) * ...
+    (2 + abs(h_eval_diff) + h_eval_comp * 3);
 
 chosen = 0; % Find a data chunk scheduled here
 left = false;
@@ -35,7 +46,8 @@ for j = 1:size(data_queue, 1)
     left = true;
     
     % Do not choose it if completion time is to be exceeded
-    if simu_time + data_queue{j, 2} / current_rate > comp_time + grace_p
+    if simu_time + data_queue{j, 2} / current_rate > ...
+        comp_time + grace_p
         continue
     end
     
@@ -53,7 +65,8 @@ if ~left % All chunks in plan are uploaded
     for j = 1:size(data_queue, 1)
         % Do not choose it if completion time is to be exceeded
         if simu_time + data_queue{j, 2} / current_rate > ...
-                comp_time + (history_eval > 0) * grace_p * 3
+                comp_time + (h_eval_diff > 0) ...
+                    * grace_p
             continue
         end
         

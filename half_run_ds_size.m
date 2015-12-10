@@ -33,17 +33,17 @@ run_f2 = run_fx(get_next_item_f2);
 run_f3 = run_fx(get_next_item_f3);
 
 % Local configurations
-number_of_op = (4:4:40)';
-nm_op = size(number_of_op, 1);
-loop_n = N_LOOP * nm_op;
-reward_total = zeros(nm_op, 9);
+size_of_ds = (1000:1000:10000)';
+nm_ds = size(size_of_ds, 1);
+loop_n = N_LOOP * nm_ds;
+reward_total = zeros(nm_ds, 9);
 
 tic
-for j = 1:nm_op
+for j = 1:nm_ds
     rwx_total = zeros(1, 9);
     for k = 1:N_LOOP
-        mat_prefix = sprintf('half/change_op_number/%d/case_%d/', ...
-            number_of_op(j), k);
+        mat_prefix = sprintf('half/change_ds_size/%d/case_%d/', ...
+            size_of_ds(j), k);
         loop_j = k + (j - 1)* N_LOOP;
         fprintf(sprintf('Running loop %d of %d...\n', loop_j, loop_n));
         
@@ -80,30 +80,30 @@ for j = 1:nm_op
     reward_total(j, :) = rwx_total./ (N_LOOP * N_LOOP_ALG);
 end
 toc
-plot(number_of_op, reward_total(:, 1), ...
-    number_of_op, reward_total(:, 2), '--', ...
-    number_of_op, reward_total(:, 3), '-x');
-xlabel('Number of upload opportunities');
+plot(size_of_ds, reward_total(:, 1), ...
+    size_of_ds, reward_total(:, 2), '--', ...
+    size_of_ds, reward_total(:, 3), '-x');
+xlabel('Size of one single data chunk (kB)');
 ylabel('Weighted overall utility');
 legend('Static plan', 'Fixed grace period', 'Flexible grace period');
-saveas(gcf, 'fig/half_op_number_asap.fig');
+saveas(gcf, 'fig/half_ds_size_asap.fig');
 
 figure;
-plot(number_of_op, reward_total(:, 4), ...
-    number_of_op, reward_total(:, 5), '--', ...
-    number_of_op, reward_total(:, 6), '-x');
-xlabel('Number of upload opportunities');
+plot(size_of_ds, reward_total(:, 4), ...
+    size_of_ds, reward_total(:, 5), '--', ...
+    size_of_ds, reward_total(:, 6), '-x');
+xlabel('Size of one single data chunk (kB)');
 ylabel('Weighted overall utility');
 legend('Static plan', 'Fixed grace period', 'Flexible grace period');
-saveas(gcf, 'fig/half_op_number_alg4.fig');
+saveas(gcf, 'fig/half_ds_size_alg4.fig');
 
 figure;
-plot(number_of_op, reward_total(:, 7), ...
-    number_of_op, reward_total(:, 8), '--', ...
-    number_of_op, reward_total(:, 9), '-x');
-xlabel('Number of upload opportunities');
+plot(size_of_ds, reward_total(:, 7), ...
+    size_of_ds, reward_total(:, 8), '--', ...
+    size_of_ds, reward_total(:, 9), '-x');
+xlabel('Size of one single data chunk (kB)');
 ylabel('Weighted overall utility');
 legend('Static plan', 'Fixed grace period', 'Flexible grace period');
-saveas(gcf, 'fig/half_op_number_ga.fig');
+saveas(gcf, 'fig/half_ds_size_ga.fig');
 
-save('mat/half_op_number.mat')
+save('mat/half_ds_size.mat')
