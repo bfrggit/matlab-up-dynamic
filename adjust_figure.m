@@ -5,3 +5,5 @@ set(findall(gca, 'Type', 'Line'), 'MarkerSize', 10);
 %legend('Location', 'northwest');
 %legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
 %xlabel('Average size of data chunks (KB)');
+%ylabel('Time to complete all data collection (sec)');
+%ylabel('Portion of important data chunks uploaded');

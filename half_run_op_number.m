@@ -102,7 +102,7 @@ for j = 1:nm_op
             rate_acc(3 * a_off + 2, 4:6)./ rate_acc(3 * a_off + 2, 1:3);
         rate_total(j, (9 * a_off + 7):(9 * a_off + 9)) = ...
             rate_acc(3 * a_off + 3, 4:6)./ rate_acc(3 * a_off + 3, 1:3);
-        rate_all_total(j, (9 * a_off + 1):(9 * a_off + 9)) = [ ...
+        rate_all_total(j, (3 * a_off + 1):(3 * a_off + 3)) = [ ...
             sum(rate_acc(3 * a_off + 1, 4:6)) / ...
                 sum(rate_acc(3 * a_off + 1, 1:3)), ...
             sum(rate_acc(3 * a_off + 2, 4:6)) / ...
@@ -140,11 +140,41 @@ legend('Static plan', 'Fixed grace period', 'Flexible grace period');
 saveas(gcf, 'fig/half_op_number_ga.fig');
 
 figure;
+plot(number_of_op, rate_total(:, 1), ...
+    number_of_op, rate_total(:, 4), '-*', ...
+    number_of_op, rate_total(:, 7), '-o');
+xlabel('Number of upload opportunities');
+ylabel('Portion of important data chunks uploaded');
+legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm', ...
+	'Location', 'southeast');
+saveas(gcf, 'fig_2/half_op_number_high_asap.fig');
+
+figure;
+plot(number_of_op, rate_total(:, 10), ...
+    number_of_op, rate_total(:, 13), '-*', ...
+    number_of_op, rate_total(:, 16), '-o');
+xlabel('Number of upload opportunities');
+ylabel('Portion of important data chunks uploaded');
+legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm', ...
+	'Location', 'southeast');
+saveas(gcf, 'fig_2/half_op_number_high_alg4.fig');
+
+figure;
+plot(number_of_op, rate_total(:, 19), ...
+    number_of_op, rate_total(:, 22), '-*', ...
+    number_of_op, rate_total(:, 25), '-o');
+xlabel('Number of upload opportunities');
+ylabel('Portion of important data chunks uploaded');
+legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm', ...
+	'Location', 'southeast');
+saveas(gcf, 'fig_2/half_op_number_high_ga.fig');
+
+figure;
 plot(number_of_op, length_task(:, 1), ...
     number_of_op, length_task(:, 2), '-*', ...
     number_of_op, length_task(:, 3), '-o');
 xlabel('Number of upload opportunities');
-ylabel('Total time to finish all data collection (sec)');
+ylabel('Time to complete all data collection (sec)');
 legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm');
 saveas(gcf, 'fig_2/half_op_number_length_asap.fig');
 
@@ -153,7 +183,7 @@ plot(number_of_op, length_task(:, 4), ...
     number_of_op, length_task(:, 5), '-*', ...
     number_of_op, length_task(:, 6), '-o');
 xlabel('Number of upload opportunities');
-ylabel('Total time to finish all data collection (sec)');
+ylabel('Time to complete all data collection (sec)');
 legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm');
 saveas(gcf, 'fig_2/half_op_number_length_alg4.fig');
 
@@ -162,7 +192,7 @@ plot(number_of_op, length_task(:, 7), ...
     number_of_op, length_task(:, 8), '-*', ...
     number_of_op, length_task(:, 9), '-o');
 xlabel('Number of upload opportunities');
-ylabel('Total time to finish all data collection (sec)');
+ylabel('Time to complete all data collection (sec)');
 legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm');
 saveas(gcf, 'fig_2/half_op_number_length_ga.fig');
 
