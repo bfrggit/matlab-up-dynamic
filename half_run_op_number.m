@@ -118,7 +118,7 @@ plot(number_of_op, reward_total(:, 1), ...
     number_of_op, reward_total(:, 3), '-x');
 xlabel('Number of upload opportunities');
 ylabel('Weighted overall utility');
-legend('Static plan', 'Fixed grace period', 'Flexible grace period');
+legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
 saveas(gcf, 'fig/half_op_number_asap.fig');
 
 figure;
@@ -127,7 +127,7 @@ plot(number_of_op, reward_total(:, 4), ...
     number_of_op, reward_total(:, 6), '-x');
 xlabel('Number of upload opportunities');
 ylabel('Weighted overall utility');
-legend('Static plan', 'Fixed grace period', 'Flexible grace period');
+legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
 saveas(gcf, 'fig/half_op_number_alg4.fig');
 
 figure;
@@ -136,7 +136,7 @@ plot(number_of_op, reward_total(:, 7), ...
     number_of_op, reward_total(:, 9), '-x');
 xlabel('Number of upload opportunities');
 ylabel('Weighted overall utility');
-legend('Static plan', 'Fixed grace period', 'Flexible grace period');
+legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
 saveas(gcf, 'fig/half_op_number_ga.fig');
 
 figure;
@@ -145,7 +145,7 @@ plot(number_of_op, rate_total(:, 1), ...
     number_of_op, rate_total(:, 7), '-o');
 xlabel('Number of upload opportunities');
 ylabel('Portion of important data chunks uploaded');
-legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm', ...
+legend('Strict static plan', 'Strict timeline', 'Adaptive grace period', ...
 	'Location', 'southeast');
 saveas(gcf, 'fig_2/half_op_number_high_asap.fig');
 
@@ -155,7 +155,7 @@ plot(number_of_op, rate_total(:, 10), ...
     number_of_op, rate_total(:, 16), '-o');
 xlabel('Number of upload opportunities');
 ylabel('Portion of important data chunks uploaded');
-legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm', ...
+legend('Strict static plan', 'Strict timeline', 'Adaptive grace period', ...
 	'Location', 'southeast');
 saveas(gcf, 'fig_2/half_op_number_high_alg4.fig');
 
@@ -165,7 +165,7 @@ plot(number_of_op, rate_total(:, 19), ...
     number_of_op, rate_total(:, 25), '-o');
 xlabel('Number of upload opportunities');
 ylabel('Portion of important data chunks uploaded');
-legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm', ...
+legend('Strict static plan', 'Strict timeline', 'Adaptive grace period', ...
 	'Location', 'southeast');
 saveas(gcf, 'fig_2/half_op_number_high_ga.fig');
 
@@ -175,7 +175,7 @@ plot(number_of_op, length_task(:, 1), ...
     number_of_op, length_task(:, 3), '-o');
 xlabel('Number of upload opportunities');
 ylabel('Time to complete all data collection (sec)');
-legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm');
+legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
 saveas(gcf, 'fig_2/half_op_number_length_asap.fig');
 
 figure;
@@ -184,7 +184,7 @@ plot(number_of_op, length_task(:, 4), ...
     number_of_op, length_task(:, 6), '-o');
 xlabel('Number of upload opportunities');
 ylabel('Time to complete all data collection (sec)');
-legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm');
+legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
 saveas(gcf, 'fig_2/half_op_number_length_alg4.fig');
 
 figure;
@@ -193,7 +193,7 @@ plot(number_of_op, length_task(:, 7), ...
     number_of_op, length_task(:, 9), '-o');
 xlabel('Number of upload opportunities');
 ylabel('Time to complete all data collection (sec)');
-legend('First opportunity', 'Proposed algorithm', 'Genetic algorithm');
+legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
 saveas(gcf, 'fig_2/half_op_number_length_ga.fig');
 
 save('mat/half_op_number.mat')
