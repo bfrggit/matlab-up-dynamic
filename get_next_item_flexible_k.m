@@ -1,11 +1,11 @@
 function [id_ds, ind] = get_next_item_flexible_k(ls_plan, t_comp, ...
     data_queue, id_ap, simu_time, current_rate, history, grace_p_base)
-ind = 0;
+ind = 0; %#ok<NASGU>
 id_ds = 0;
 n_scheduled = sum(ls_plan == id_ap);
-if n_scheduled < 1
-    return
-end
+%if n_scheduled < 1
+%    return
+%end
 comp_time = t_comp(id_ap);
 
 % Evaluate history data
@@ -36,7 +36,7 @@ else
 end
 
 % Determine grace period
-grace_p = round(grace_p_base * log2(n_scheduled)) * ...
+grace_p = round(grace_p_base * log2(n_scheduled + 1)) * ...
     (2 + abs(h_eval_diff) + h_eval_dif2 * h_eval_comp);
 
 chosen = 0; % Find a data chunk scheduled here

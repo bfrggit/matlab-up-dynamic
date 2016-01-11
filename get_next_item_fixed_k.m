@@ -1,11 +1,11 @@
 function [id_ds, ind] = get_next_item_fixed_k(ls_plan, t_comp, ...
     data_queue, id_ap, simu_time, current_rate, ~, grace_p)
-ind = 0;
+ind = 0; %#ok<NASGU>
 id_ds = 0;
-n_scheduled = sum(ls_plan == id_ap);
-if n_scheduled < 1
-    return
-end
+%n_scheduled = sum(ls_plan == id_ap);
+%if n_scheduled < 1
+%    return
+%end
 comp_time = t_comp(id_ap);
 
 chosen = 0; % Find a data chunk scheduled here
