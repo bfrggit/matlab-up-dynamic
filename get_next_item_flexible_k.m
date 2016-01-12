@@ -36,8 +36,8 @@ else
 end
 
 % Determine grace period
-grace_p = round(grace_p_base * log2(n_scheduled + 1)) * ...
-    (2 + abs(h_eval_diff) + h_eval_dif2 * h_eval_comp);
+grace_p = round(grace_p_base * log2(n_scheduled + 1)) ...
+    * (2 + abs(h_eval_diff) + h_eval_dif2 * h_eval_comp);
 
 chosen = 0; % Find a data chunk scheduled here
 left = false;

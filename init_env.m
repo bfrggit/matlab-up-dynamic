@@ -3,7 +3,7 @@ clear
 clc
 
 global SEED_BASE;
-SEED_BASE = 1000000;
+SEED_BASE = 2 ^ 32 - 1;
 
 BASIC_WAIT = 6;
 DS_AVERAGE_RETRY_TIME = 6;
