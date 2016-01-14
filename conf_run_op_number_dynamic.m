@@ -16,7 +16,7 @@ N_LOOP = 5;
 N_LOOP_ALG = 20;
 AP_RATE_CHANGE_HALF_RANGE = 300;
 GRACE_PERIOD = 60;
-GRACE_PERIOD_BASE = 10;
+YUSUF_K1 = 2e-6; YUSUF_K3 = 1e-4;
 
 % Random seeds for loops
 rng_seeds = randi(2 ^ 32 - 1, N_LOOP, N_LOOP_ALG);
@@ -26,7 +26,7 @@ ap_rate_change_f = simu_change_rates_uniform( ...
     AP_RATE_CHANGE_HALF_RANGE, ...
     AP_RATE_MIN);
 get_next_item_f2 = get_next_item_fixed(GRACE_PERIOD);
-get_next_item_f3 = get_next_item_flexible(GRACE_PERIOD_BASE);
+get_next_item_f3 = get_next_item_yusuf(YUSUF_K1, YUSUF_K3);
 run_fx = @(get_next_item_f) run_dynamic(BASIC_WAIT, ...
     DS_AVERAGE_RETRY_TIME, ...
     AP_AVERAGE_WAIT_TIME, ...
@@ -84,7 +84,7 @@ for j = 1:nm_op
                 length_acc(ind_r) = length_acc(ind_r) + ...
                     act_t_comp(size(act_t_comp, 1));
 
-                % Flexible grace period
+                % Control theory
                 rng(rng_seeds(k, g));
                 [act_r, est_r, act_t_up, act_t_comp, rate_x] = ...
                     run_f3(mat_file); %#ok<*ASGLU>
@@ -121,7 +121,7 @@ plot(number_of_op, reward_total(:, 1), ...
     number_of_op, reward_total(:, 3), '-x');
 xlabel('Number of upload opportunities');
 ylabel('Weighted overall utility');
-legend('Strict static plan', 'Strict timeline', 'Adaptive grace period', ...
+legend('Strict static plan', 'Strict timeline', 'Control theory', ...
 	'Location', 'southeast');
 saveas(gcf, 'fig/conf_op_number_dynamic_asap.fig');
 
@@ -131,7 +131,7 @@ plot(number_of_op, reward_total(:, 4), ...
     number_of_op, reward_total(:, 6), '-x');
 xlabel('Number of upload opportunities');
 ylabel('Weighted overall utility');
-legend('Strict static plan', 'Strict timeline', 'Adaptive grace period', ...
+legend('Strict static plan', 'Strict timeline', 'Control theory', ...
 	'Location', 'southeast');
 saveas(gcf, 'fig/conf_op_number_dynamic_alg4.fig');
 
@@ -141,7 +141,7 @@ plot(number_of_op, reward_total(:, 7), ...
     number_of_op, reward_total(:, 9), '-x');
 xlabel('Number of upload opportunities');
 ylabel('Weighted overall utility');
-legend('Strict static plan', 'Strict timeline', 'Adaptive grace period', ...
+legend('Strict static plan', 'Strict timeline', 'Control theory', ...
 	'Location', 'southeast');
 saveas(gcf, 'fig/conf_op_number_dynamic_ga.fig');
 
@@ -151,7 +151,7 @@ plot(number_of_op, length_task(:, 1), ...
     number_of_op, length_task(:, 3), '-x');
 xlabel('Number of upload opportunities');
 ylabel('Time to complete all data collection (sec)');
-legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
+legend('Strict static plan', 'Strict timeline', 'Control theory');
 saveas(gcf, 'fig_2/conf_op_number_length_asap.fig');
 
 figure;
@@ -160,7 +160,7 @@ plot(number_of_op, length_task(:, 4), ...
     number_of_op, length_task(:, 6), '-x');
 xlabel('Number of upload opportunities');
 ylabel('Time to complete all data collection (sec)');
-legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
+legend('Strict static plan', 'Strict timeline', 'Control theory');
 saveas(gcf, 'fig_2/conf_op_number_length_alg4.fig');
 
 figure;
@@ -169,7 +169,7 @@ plot(number_of_op, length_task(:, 7), ...
     number_of_op, length_task(:, 9), '-x');
 xlabel('Number of upload opportunities');
 ylabel('Time to complete all data collection (sec)');
-legend('Strict static plan', 'Strict timeline', 'Adaptive grace period');
+legend('Strict static plan', 'Strict timeline', 'Control theory');
 saveas(gcf, 'fig_2/conf_op_number_length_ga.fig');
 
 save('mat/conf_op_number_dynamic.mat')

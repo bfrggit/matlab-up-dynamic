@@ -59,7 +59,7 @@ end
 
 % If this is the last opportunity, upload everything
 n_op = size(t_comp, 1);
-if id_ap == n_op
+if id_ap == n_op && chosen < 1
     for j = 1:size(data_queue, 1)
         if chosen < 1
             chosen = j;

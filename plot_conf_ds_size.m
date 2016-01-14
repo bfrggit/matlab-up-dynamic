@@ -1,4 +1,4 @@
-load('mat/half_ds_size.mat');
+load('mat/conf_ds_size_dynamic.mat');
 
 figure;
 plot(size_of_ds, reward_total(:, 1), ...
@@ -11,7 +11,7 @@ ylabel('Weighted overall utility');
 legend('First opportunity', 'Balanced DOP', 'Genetic algorithm', ...
     'BDOP-CT', 'GA-CT', ...
     'Location', 'southwest');
-saveas(gcf, 'fig_2/half_ds_size_x.fig');
+saveas(gcf, 'fig_2/conf_ds_size_x.fig');
 
 figure;
 plot(size_of_ds, length_task(:, 1), ...
@@ -24,4 +24,4 @@ ylabel('Time to complete all data collection (sec)');
 legend('First opportunity', 'Balanced DOP', 'Genetic algorithm', ...
     'BDOP-CT', 'GA-CT', ...
     'Location', 'northwest');
-saveas(gcf, 'fig_2/half_ds_size_length_x.fig');
+saveas(gcf, 'fig_2/conf_ds_size_length_x.fig');

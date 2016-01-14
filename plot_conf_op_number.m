@@ -1,4 +1,4 @@
-load('mat/half_op_number.mat');
+load('mat/conf_op_number_dynamic.mat');
 
 figure;
 plot(number_of_op, reward_total(:, 1), ...
@@ -11,7 +11,7 @@ ylabel('Weighted overall utility');
 legend('First opportunity', 'Balanced DOP', 'Genetic algorithm', ...
     'BDOP-CT', 'GA-CT', ...
     'Location', 'southeast');
-saveas(gcf, 'fig_2/half_op_number_x.fig');
+saveas(gcf, 'fig_2/conf_op_number_x.fig');
 
 figure;
 plot(number_of_op, length_task(:, 1), ...
@@ -24,4 +24,4 @@ ylabel('Time to complete all data collection (sec)');
 legend('First opportunity', 'Balanced DOP', 'Genetic algorithm', ...
     'BDOP-CT', 'GA-CT', ...
     'Location', 'northwest');
-saveas(gcf, 'fig_2/half_op_number_length_x.fig');
+saveas(gcf, 'fig_2/conf_op_number_length_x.fig');
