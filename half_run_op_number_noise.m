@@ -129,7 +129,7 @@ xlabel('Number of upload opportunities');
 ylabel('Weighted overall utility');
 legend('Noise=0', 'Noise=+/-100', 'Noise=+/-200', 'Noise=+/-300', ...
 	'Location', 'southeast');
-saveas(gcf, 'fig/half_op_number_noise_alg4_agp.fig');
+saveas(gcf, 'fig/half_op_number_noise_alg4_ct.fig');
 
 figure;
 plot(number_of_op, length_task(:, 1), '--', ...
@@ -159,6 +159,6 @@ plot(number_of_op, length_task(:, 3), '--', ...
 xlabel('Number of upload opportunities');
 ylabel('Time to complete all data collection (sec)');
 legend('Noise=0', 'Noise=+/-100', 'Noise=+/-200', 'Noise=+/-300');
-saveas(gcf, 'fig_2/half_op_number_noise_length_alg4_agp.fig');
+saveas(gcf, 'fig_2/half_op_number_noise_length_alg4_ct.fig');
 
 save('mat/half_op_number_noise.mat')
