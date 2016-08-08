@@ -36,7 +36,7 @@ assert(exist('t_comp', 'var') == 1);
 vec_ls = m_to_ls(mat_m);
 
 act_op_rates = change_rates_f(v_op(:, 2));
-act_data = change_data_f(v_ds)
+act_data = change_data_f(v_ds);
 
 simu_time = 0;
 x_mdc = 0;
