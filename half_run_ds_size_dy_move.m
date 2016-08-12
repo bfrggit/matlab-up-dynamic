@@ -154,7 +154,7 @@ for t_move_sigma_10 = 0:1:3
     xlabel('Average size of data chunks (KB)');
     ylabel('Portion of important data chunks uploaded');
     legend('Strict static plan', 'Strict timeline', 'Control theory', ...
-    	'Location', 'southeast');
+        'Location', 'southeast');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_high_asap.fig', ...
         t_move_sigma_10));
 
@@ -165,7 +165,7 @@ for t_move_sigma_10 = 0:1:3
     xlabel('Average size of data chunks (KB)');
     ylabel('Portion of important data chunks uploaded');
     legend('Strict static plan', 'Strict timeline', 'Control theory', ...
-    	'Location', 'southeast');
+        'Location', 'southeast');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_high_alg4.fig', ...
         t_move_sigma_10));
 
@@ -176,7 +176,7 @@ for t_move_sigma_10 = 0:1:3
     xlabel('Average size of data chunks (KB)');
     ylabel('Portion of important data chunks uploaded');
     legend('Strict static plan', 'Strict timeline', 'Control theory', ...
-    	'Location', 'southeast');
+        'Location', 'southeast');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_high_ga.fig', ...
         t_move_sigma_10));
 
