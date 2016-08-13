@@ -28,15 +28,15 @@ nm_ds = size(size_of_ds, 1);
 loop_n = N_LOOP * nm_ds;
 
 % Run normal main program for each choice of level of movement dynamics
-for t_move_sigma_10 = 0:1:3
+for t_move_coef_10 = 0:1:5
     reward_total = zeros(nm_ds, 9);
     rate_total = zeros(nm_ds, 27);
     rate_all_total = zeros(nm_ds, 9);
     length_task = zeros(nm_ds, 9);
 
     % Set level of movement dynamics
-    t_move_sigma = t_move_sigma_10 / 10;
-    t_move_f = simu_t_move_normal(t_move_sigma);
+    t_move_coef = t_move_coef_10 / 10;
+    t_move_f = simu_t_move_exp(t_move_coef);
     run_fx = @(get_next_item_f) run_dy_move_3(BASIC_WAIT, ...
         DS_AVERAGE_RETRY_TIME, ...
         AP_AVERAGE_WAIT_TIME, ...
@@ -46,7 +46,7 @@ for t_move_sigma_10 = 0:1:3
     run_f1 = run_fx(@get_next_item_0);
     run_f2 = run_fx(get_next_item_f2);
     run_f3 = run_fx(get_next_item_f3);
-    fprintf(sprintf('Using sigma %.2f...\n', t_move_sigma));
+    fprintf(sprintf('Using sigma %.2f...\n', t_move_coef));
 
     tic
     for j = 1:nm_ds
@@ -125,7 +125,7 @@ for t_move_sigma_10 = 0:1:3
     ylabel('Weighted overall utility');
     legend('Strict static plan', 'Strict timeline', 'Control theory');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_asap.fig', ...
-        t_move_sigma_10));
+        t_move_coef_10));
 
     figure;
     plot(size_of_ds, reward_total(:, 4), ...
@@ -135,7 +135,7 @@ for t_move_sigma_10 = 0:1:3
     ylabel('Weighted overall utility');
     legend('Strict static plan', 'Strict timeline', 'Control theory');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_alg4.fig', ...
-        t_move_sigma_10));
+        t_move_coef_10));
 
     figure;
     plot(size_of_ds, reward_total(:, 7), ...
@@ -145,7 +145,7 @@ for t_move_sigma_10 = 0:1:3
     ylabel('Weighted overall utility');
     legend('Strict static plan', 'Strict timeline', 'Control theory');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_ga.fig', ...
-        t_move_sigma_10));
+        t_move_coef_10));
 
     figure;
     plot(size_of_ds, rate_total(:, 1), ...
@@ -156,7 +156,7 @@ for t_move_sigma_10 = 0:1:3
     legend('Strict static plan', 'Strict timeline', 'Control theory', ...
         'Location', 'southeast');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_high_asap.fig', ...
-        t_move_sigma_10));
+        t_move_coef_10));
 
     figure;
     plot(size_of_ds, rate_total(:, 10), ...
@@ -167,7 +167,7 @@ for t_move_sigma_10 = 0:1:3
     legend('Strict static plan', 'Strict timeline', 'Control theory', ...
         'Location', 'southeast');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_high_alg4.fig', ...
-        t_move_sigma_10));
+        t_move_coef_10));
 
     figure;
     plot(size_of_ds, rate_total(:, 19), ...
@@ -178,7 +178,7 @@ for t_move_sigma_10 = 0:1:3
     legend('Strict static plan', 'Strict timeline', 'Control theory', ...
         'Location', 'southeast');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_high_ga.fig', ...
-        t_move_sigma_10));
+        t_move_coef_10));
 
     figure;
     plot(size_of_ds, length_task(:, 1), ...
@@ -188,7 +188,7 @@ for t_move_sigma_10 = 0:1:3
     ylabel('Time to complete all data collection (sec)');
     legend('Strict static plan', 'Strict timeline', 'Control theory');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_length_asap.fig', ...
-        t_move_sigma_10));
+        t_move_coef_10));
 
     figure;
     plot(size_of_ds, length_task(:, 4), ...
@@ -198,7 +198,7 @@ for t_move_sigma_10 = 0:1:3
     ylabel('Time to complete all data collection (sec)');
     legend('Strict static plan', 'Strict timeline', 'Control theory');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_length_alg4.fig', ...
-        t_move_sigma_10));
+        t_move_coef_10));
 
     figure;
     plot(size_of_ds, length_task(:, 7), ...
@@ -208,7 +208,7 @@ for t_move_sigma_10 = 0:1:3
     ylabel('Time to complete all data collection (sec)');
     legend('Strict static plan', 'Strict timeline', 'Control theory');
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_length_ga.fig', ...
-        t_move_sigma_10));
+        t_move_coef_10));
 
-    save(sprintf('mat/half_ds_size_dy_move.mat', t_move_sigma_10))
+    save(sprintf('mat/half_ds_size_dy_move.mat', t_move_coef_10))
 end
