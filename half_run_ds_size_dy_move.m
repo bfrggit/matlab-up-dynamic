@@ -46,7 +46,7 @@ for t_move_coef_10 = 0:1:5
     run_f1 = run_fx(@get_next_item_0);
     run_f2 = run_fx(get_next_item_f2);
     run_f3 = run_fx(get_next_item_f3);
-    fprintf(sprintf('Using sigma %.2f...\n', t_move_coef));
+    fprintf(sprintf('Using lambda %.2f...\n\n', t_move_coef));
 
     tic
     for j = 1:nm_ds
