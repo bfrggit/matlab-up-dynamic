@@ -210,5 +210,5 @@ for t_move_coef_10 = 0:1:5
     saveas(gcf, sprintf('fig_3/half_ds_size_dy_move_%d_length_ga.fig', ...
         t_move_coef_10));
 
-    save(sprintf('mat/half_ds_size_dy_move.mat', t_move_coef_10))
+    save(sprintf('mat/half_ds_size_dy_move_%d.mat', t_move_coef_10))
 end
