@@ -30,6 +30,7 @@ loop_n = N_LOOP * nm_op;
 % Run normal main program for each choice of level of data dynamics
 for data_change_hrp_10 = 0:1:5
     reward_total = zeros(nm_op, 9);
+    reward_stdev = zeros(nm_op, 9);
     rate_total = zeros(nm_op, 27);
     rate_all_total = zeros(nm_op, 9);
     length_task = zeros(nm_op, 9);
@@ -51,6 +52,7 @@ for data_change_hrp_10 = 0:1:5
     tic
     for j = 1:nm_op
         reward_acc = zeros(1, 9);
+        reward_asq = zeros(1, 9);
         rate_acc = zeros(9, 6);
         length_acc = zeros(1, 9);
         for k = 1:N_LOOP
@@ -71,6 +73,7 @@ for data_change_hrp_10 = 0:1:5
                         run_f1(mat_file); %#ok<*ASGLU>
                     ind_r = ind_r + 1;
                     reward_acc(ind_r) = reward_acc(ind_r) + act_r;
+                    reward_asq(ind_r) = reward_asq(ind_r) + act_r;
                     rate_acc(ind_r, :) = rate_acc(ind_r, :) + rate_x;
                     length_acc(ind_r) = length_acc(ind_r) + ...
                         act_t_comp(size(act_t_comp, 1));
@@ -81,6 +84,7 @@ for data_change_hrp_10 = 0:1:5
                         run_f2(mat_file); %#ok<*ASGLU>
                     ind_r = ind_r + 1;
                     reward_acc(ind_r) = reward_acc(ind_r) + act_r;
+                    reward_asq(ind_r) = reward_asq(ind_r) + act_r;
                     rate_acc(ind_r, :) = rate_acc(ind_r, :) + rate_x;
                     length_acc(ind_r) = length_acc(ind_r) + ...
                         act_t_comp(size(act_t_comp, 1));
@@ -91,6 +95,7 @@ for data_change_hrp_10 = 0:1:5
                         run_f3(mat_file); %#ok<*ASGLU>
                     ind_r = ind_r + 1;
                     reward_acc(ind_r) = reward_acc(ind_r) + act_r;
+                    reward_asq(ind_r) = reward_asq(ind_r) + act_r;
                     rate_acc(ind_r, :) = rate_acc(ind_r, :) + rate_x;
                     length_acc(ind_r) = length_acc(ind_r) + ...
                         act_t_comp(size(act_t_comp, 1));
@@ -99,6 +104,9 @@ for data_change_hrp_10 = 0:1:5
             fprintf('\n');
         end
         reward_total(j, :) = reward_acc./ (N_LOOP * N_LOOP_ALG);
+        reward_stdev(j, :) = sqrt(reward_asq - ...
+            reward_acc.^ 2 / (N_LOOP * N_LOOP_ALG))./ ...
+            sqrt(N_LOOP * N_LOOP_ALG - 1);
         for a_off = 0:2
             rate_total(j, (9 * a_off + 1):(9 * a_off + 3)) = ...
                 rate_acc(3 * a_off + 1, 4:6)./ rate_acc(3 * a_off + 1, 1:3);
