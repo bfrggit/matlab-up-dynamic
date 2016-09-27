@@ -30,7 +30,7 @@ loop_n = N_LOOP * nm_ds;
 % Run normal main program for each choice of level of movement dynamics
 for t_move_coef_10 = 0:1:5
     reward_total = zeros(nm_ds, 9);
-    reward_stdev = zeros(nm_op, 9);
+    reward_stdev = zeros(nm_ds, 9);
     rate_total = zeros(nm_ds, 27);
     rate_all_total = zeros(nm_ds, 9);
     length_task = zeros(nm_ds, 9);
